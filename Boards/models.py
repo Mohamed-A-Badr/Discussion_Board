@@ -23,3 +23,6 @@ class PostData(models.Model):
     topic = models.ForeignKey(TopicData, related_name='post', on_delete=models.CASCADE)
     created_by = models.ForeignKey(User, related_name='post', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.content
