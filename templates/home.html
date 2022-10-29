@@ -19,10 +19,10 @@
   <tbody>
     {%for board in boards%}
     <tr>
-      <th scope="row">
-          {{board.id}}
-      </th>
-      <td>{{board.name}}</td>
+      <th scope="row">{{board.pk}}</th>
+      <td>
+        <a class="link-primary" href="{%url 'board_topics' board.pk%}">{{board.name}}</a>
+      </td>
       <td>0</td>
       <td>0</td>
       <td></td>
