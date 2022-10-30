@@ -17,3 +17,10 @@ class BoardView(View):
             'board':board,
             'topics':topics,
         })
+
+class PostView(View):
+    def get(self, request, board_id, topic_id):
+        topic = get_object_or_404(TopicData, board__pk=board_id, pk=topic_id)
+        return render(request, 'post.html', {
+            'topic':topic
+        })

@@ -1,0 +1,29 @@
+{%extends 'base.html'%}
+
+{%block title%} {{topic.title}} {%endblock%}
+{%block breadcrumb%}
+    <li class="breadcrumb-item">
+        <a href="{%url 'home'%}">Board</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="{% url 'board_topics' topic.board.pk%}">{{topic.board.name}}</a>
+    </li>
+    <li class="breadcrumb-item active">{{topic.title}}</li>
+{%endblock%}
+
+{%block content%}
+{%for post in topic.post.all%}
+<div class="card">
+  <div class="card-header">
+    {{user.username}}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{topic.title}}</h5>
+    <p class="card-text">{{post.content}}</p>
+      {%if user.is_authenticated%}
+    <a href="#" class="btn btn-primary">edit</a>
+      {%endif%}
+  </div>
+</div>
+{%endfor%}
+{%endblock%}
