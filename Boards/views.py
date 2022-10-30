@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from .models import *
-
+from .form import NewBoardForm
 
 # Create your views here.
 
@@ -28,3 +28,13 @@ class PostView(View):
         return render(request, 'post.html', {
             'topic': topic
         })
+
+class New_Board(View):
+    def get(self, request):
+        form = NewBoardForm()
+        return render(request, 'new_board.html', {'form':form})
+
+    def post(self, request):
+        form = NewBoardForm(request.POST)
+        form.save()
+        return redirect('home')
