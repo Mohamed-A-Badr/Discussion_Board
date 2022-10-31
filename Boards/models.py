@@ -24,7 +24,7 @@ class TopicData(models.Model):
 
 class PostData(models.Model):
     topic = models.ForeignKey(TopicData, related_name='post', on_delete=models.CASCADE)
-    content = models.CharField(max_length=250)
+    content = models.TextField(max_length=250)
     created_by = models.ForeignKey(User, related_name='post', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
 

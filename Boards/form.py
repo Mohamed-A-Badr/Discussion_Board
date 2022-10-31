@@ -1,3 +1,5 @@
+from dataclasses import field
+from statistics import mode
 from django import forms
 from .models import *
 
@@ -13,3 +15,8 @@ class NewTopicForm(forms.ModelForm):
     class Meta:
         model = TopicData
         fields = ['title', 'content']
+
+class NewPostForm(forms.ModelForm):
+    class Meta:
+        model = PostData
+        fields = ['content', ]

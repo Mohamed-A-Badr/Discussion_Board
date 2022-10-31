@@ -3,17 +3,16 @@
 {%block title%} {{board.name}} {%endblock%}
 
 {%block breadcrumb%}
-    <li class="breadcrumb-item">
-      <a href="{%url 'home'%}">Board</a>
-    </li>
-    <li class="breadcrumb-item active">{{board.name}}</li>
+<li class="breadcrumb-item">
+  <a href="{%url 'home'%}">Board</a>
+</li>
+<li class="breadcrumb-item active">{{board.name}}</li>
 {%endblock%}
 
 {%block content%}
 <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">#</th>
       <th scope="col">Topic name</th>
       <th scope="col">Posts</th>
       <th scope="col">View</th>
@@ -24,12 +23,9 @@
   <tbody>
     {%for topic in topics%}
     <tr>
-      <th scope="row">
-          {{topic.id}}
-      </th>
       <td>
         <a href="{% url 'posts' board.pk topic.pk%}">{{topic.title}}</a>
-        </td>
+      </td>
       <td>0</td>
       <td>0</td>
       <td>{{topic.created_by}}</td>
@@ -39,6 +35,6 @@
   </tbody>
 </table>
 <div class="container">
-  <a href="{% url 'new_topic' board.pk%}" class="btn btn-primary">Add Board</a>
+  <a href="{% url 'new_topic' board.pk%}" class="btn btn-primary">Add Topic</a>
 </div>
 {%endblock%}

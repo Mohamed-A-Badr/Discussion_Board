@@ -2,13 +2,13 @@
 
 {%block title%} {{topic.title}} {%endblock%}
 {%block breadcrumb%}
-    <li class="breadcrumb-item">
-        <a href="{%url 'home'%}">Board</a>
-    </li>
-    <li class="breadcrumb-item">
-        <a href="{% url 'board_topics' topic.board.pk%}">{{topic.board.name}}</a>
-    </li>
-    <li class="breadcrumb-item active">{{topic.title}}</li>
+<li class="breadcrumb-item">
+  <a href="{%url 'home'%}">Board</a>
+</li>
+<li class="breadcrumb-item">
+  <a href="{% url 'board_topics' topic.board.pk%}">{{topic.board.name}}</a>
+</li>
+<li class="breadcrumb-item active">{{topic.title}}</li>
 {%endblock%}
 
 {%block content%}
@@ -20,10 +20,13 @@
   <div class="card-body">
     <h5 class="card-title">{{topic.title}}</h5>
     <p class="card-text">{{post.content}}</p>
-      {%if user.is_authenticated%}
+    {%if post.created_by == user%}
     <a href="#" class="btn btn-primary">edit</a>
-      {%endif%}
+    {%endif%}
   </div>
 </div>
 {%endfor%}
+<div class="container">
+  <a href="{% url 'new_post' topic.board.pk topic.pk%}" class="btn btn-primary my-4">Add Post</a>
+</div>
 {%endblock%}

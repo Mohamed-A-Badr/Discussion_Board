@@ -33,7 +33,7 @@ class PostView(View):
         })
 
 
-
+@method_decorator(login_required, name='dispatch')
 class New_Board(View):
     def get(self, request):
         form = NewBoardForm()
@@ -44,6 +44,8 @@ class New_Board(View):
         form.save()
         return redirect('home')
 
+
+@method_decorator(login_required, name='dispatch')
 class New_Topic(View):
     def get(self, request, board_id):
         board = get_object_or_404(BoardData, pk=board_id)
@@ -70,5 +72,31 @@ class New_Topic(View):
             return redirect('board_topics', board_id=board.pk)
         return render(request, 'new_topic.html', {
             'board': board,
+            'form': form
+        })
+
+
+@method_decorator(login_required, name='dispatch')
+class New_Post(View):
+    def get(self, request, board_id, topic_id):
+        topic = get_object_or_404(TopicData, board__pk=board_id, pk=topic_id)
+        form = NewPostForm()
+        return render(request, 'new_post.html', {
+            'topic': topic,
+            'form': form
+        })
+
+    def post(self, request, board_id, topic_id):
+        topic = get_object_or_404(TopicData, board__pk=board_id, pk=topic_id)
+        form = NewPostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.topic = topic
+            post.created_by = request.user
+            post.save()
+
+            return redirect('posts', board_id, topic_id)
+        return render(request, 'new_post.html', {
+            'topic': topic,
             'form': form
         })
